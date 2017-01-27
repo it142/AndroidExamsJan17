@@ -74,11 +74,17 @@ public class MerchantFragment extends Fragment{
         private ArrayList<Merchant> getMerchantsFromJson(String merchantJsonStr) throws JSONException {
             ArrayList<Merchant> merchants = new ArrayList<>();
             try{
-                Log.i("Erros", merchants.toString());
+                //Log.i("Erros", merchants.toString());
                 JSONArray merchantsArray = new JSONArray(merchantJsonStr);
-                //.....
+                for(int i=0; i<24;i++) {
+                    String legalName = merchantsArray.getJSONObject(i).getString("legalName").toString();
+                    String merchantCategory = merchantsArray.getJSONObject(i).getJSONObject("merchantCategory").getString("name").toString();
+                    //String contactPoint = merchantsArray.getJSONObject(i).getJSONObject("merchantCategory").getString("name").toString();
+                    Log.i("Erros", legalName);
+                    Log.i("Erros", merchantCategory);
+                    //.....
 
-
+                }
 
 
 
@@ -100,12 +106,13 @@ public class MerchantFragment extends Fragment{
             String merchantJsonStr = null;
 
             try {
-                final String YUMMY_MERCHANTS_URL = "http://dev.savecash:3000/Merchant/index.json?$orderby=id%20desc";
+                final String YUMMY_MERCHANTS_URL = "/Merchant/index.json?$orderby=id%20desc";
 
                 Uri builtUri = Uri.parse(YUMMY_BASE_DOMAIN+YUMMY_MERCHANTS_URL);
 
 
                 URL url = new URL(builtUri.toString());
+                Log.i("Erros", builtUri.toString());
 
                 // Create the request to Yummy Wallet server, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
